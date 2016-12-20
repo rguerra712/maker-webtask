@@ -18,7 +18,7 @@
                                     if (response.status === 200){
                                         let message = response.body;
                                         if (message.device === deviceToListenFor) {
-                                            action();
+                                            action(message);
                                         }
                                     }
                                 });
