@@ -6,7 +6,7 @@ Consume message between IFFT (Maker) and other webtask-queue consumers
 1. Setup your IFTTT Channel to listen for maker commands at the queue output above. You will want it to POST a body similar to the below:
 ```
 {
-    "deviceName": "<NAME TO LISTEN FOR>",
+    "device": "<NAME OF DEVICE TO LISTEN FOR>",
     "command": "<SPECIFIC DETAILS TO REACT UPON>"
 }
 ```
@@ -18,13 +18,13 @@ function turnOnLight(message) {
   if (message.command === 'on') {
     // Turn light on
   }
-};
+}
 makerWebtask.run(webtaskUrl, 'lightbulb', turnLightOn);
 ```
 With the above example, when Maker calls the above URL with the following body:
 ```
 {
-    "deviceName": "lightbulb",
+    "device": "lightbulb",
     "command": "on"
 }
 ```
