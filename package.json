@@ -1,13 +1,13 @@
 {
   "name": "maker-webtask",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Consume message between IFFT (Maker) and other webtask-queue consumers ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "R. Stephen Guerra",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "dependencies": {
     "append-query": "^2.0.1",
     "command-line-args": "^3.0.4",
