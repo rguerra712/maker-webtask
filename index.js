@@ -5,7 +5,7 @@
     const cron = require('cron');
     const settings = require('./config/settings.js');
 
-    let webtaskUrl = settings.makerSettings.makerWebtaskUrl;
+    let webtaskUrl = settings.makerSettings.webtaskUrlWithKey;
 
     exports.run = (deviceToListenFor, action, pollingInterval) => {
         if (!pollingInterval){
