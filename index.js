@@ -3,32 +3,34 @@
 
     const unirest = require('unirest');
     const cron = require('cron');
+    const settings = require('./config/settings.js');
 
-    exports.run = (webtaskUrl, deviceToListenFor, action) => {
+    let webtaskUrl = settings.makerSettings.makerWebtaskUrl;
+
+    exports.run = (deviceToListenFor, action, pollingInterval) => {
+        if (!pollingInterval){
+            pollingInterval = 5;
+        }
         if (webtaskUrl) {
-            var cronJob = cron.job('*/5 * * * * *', 
-                () => {
-                    unirest.get(webtaskUrl + '&peek=1') // peek first to not consume others
-                    .end(response => {
-                        if (response.status === 200){
-                            let message = response.body;
-                            if (message.device === deviceToListenFor) {
-                                unirest.get(webtaskUrl)
-                                .end(response => {
-                                    if (response.status === 200){
-                                        let message = response.body;
-                                        if (message.device === deviceToListenFor) {
-                                            action(message);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-            });
+            var cronJob = cron.job(`*/${pollingInterval} * * * * *`, 
+                () => checkWebtaskQueueFor(device,
+                        message => checkWebtaskQueueFor(device, action), // on successfult peek, no peek 
+                        '&peek=1') // peek first
+            );
             cronJob.start();
         }
     };
 
-    
+    function checkWebtaskQueueFor(deviceToListenFor, actionOnFound, appendedQueryString){
+        unirest.get(webtaskUrl + appendedQueryString)
+            .end(response => {
+                if (response.status === 200){
+                    let message = response.body;
+                    if (message.device === deviceToListenFor) {
+                        actionOnFound(message);
+                    }
+                }
+            });
+    }
+
 })();
