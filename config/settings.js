@@ -21,7 +21,7 @@
         settings.webtaskSecret = process.env.MAKER_WEBTASK_URL; 
     }
 
-    let webtaskUrlWithKey = appendQuery(settings.makerWebtaskUrl, settings.webtaskSecret);
+    let webtaskUrlWithKey = appendQuery(settings.makerWebtaskUrl, 'secret=' + settings.webtaskSecret);
     exports.makerSettings = {
         webtaskUrlWithKey: webtaskUrlWithKey
     };
