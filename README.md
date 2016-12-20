@@ -10,6 +10,9 @@ Consume message between IFFT (Maker) and other webtask-queue consumers
     "command": "<SPECIFIC DETAILS TO REACT UPON>"
 }
 ```
+1. Set an environment variable for the webtask queue above
+  1. Set the environment variable `MAKER_WEBTASK_URL` giving it the above url
+  1. Alternatively, you can pass in the command line argument `-w`
 1. Add the package as an NPM package reacting to these commands
 ```
 var makerWebtask = require('maker-webtask');
@@ -19,7 +22,8 @@ function turnOnLight(message) {
     // Turn light on
   }
 }
-makerWebtask.run(webtaskUrl, 'lightbulb', turnLightOn);
+var pollingInterval = 5; // Check the queue every 5 seconds due to quotas
+makerWebtask.run('lightbulb', turnLightOn, pollingInterval);
 ```
 With the above example, when Maker calls the above URL with the following body:
 ```
