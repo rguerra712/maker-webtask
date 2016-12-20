@@ -22,6 +22,9 @@
     };
 
     function checkWebtaskQueueFor(deviceToListenFor, actionOnFound, appendedQueryString){
+        if (!appendedQueryString){
+            appendedQueryString = '';
+        }
         unirest.get(webtaskUrl + appendedQueryString)
             .end(response => {
                 if (response.status === 200){
