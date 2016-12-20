@@ -7,7 +7,7 @@
 
     let webtaskUrl = settings.makerSettings.webtaskUrlWithKey;
 
-    exports.run = (deviceToListenFor, action, pollingInterval) => {
+    exports.run = (device, action, pollingInterval) => {
         if (!pollingInterval){
             pollingInterval = 5;
         }
