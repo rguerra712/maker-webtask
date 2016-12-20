@@ -11,8 +11,8 @@ Consume message between IFFT (Maker) and other webtask-queue consumers
 }
 ```
 1. Set an environment variable for the webtask queue above
-  1. Set the environment variable `MAKER_WEBTASK_URL` giving it the above url
-  1. Alternatively, you can pass in the command line argument `-w`
+  1. Set the environment variable `MAKER_WEBTASK_URL` giving it the above url (alternatively, use the command line argument `-w`)
+  1. Set the environment variable `WEBTASK_SECRET` giving it the secret used in the step above (alternatively, use the command line argument `-s`)
 1. Add the package as an NPM package reacting to these commands
 ```
 var makerWebtask = require('maker-webtask');
