@@ -1,24 +1,19 @@
 (function(){
     
-    const commandLineArgs = require('command-line-args');
     const appendQuery = require('append-query');
-    const optionDefinitions = [
-        { name: 'makerwebtaskurl', alias: 'w', type: String, defaultValue: '' },
-        { name: 'webtasksecret', alias: 's', type: String, defaultValu: '' },
-    ];
-    const options = commandLineArgs(optionDefinitions);
 
     let settings = {};
 
-    settings.makerWebtaskUrl = options.makerwebtaskurl;
-    settings.webtaskSecret = options.webtasksecret;
-
-    if (!settings.makerWebtaskUrl && process.env.MAKER_WEBTASK_URL){
+    if (process.env.MAKER_WEBTASK_URL){
         settings.makerWebtaskUrl = process.env.MAKER_WEBTASK_URL; 
+    } else {
+        throw new Error('MAKER_WEBTASK_URL environment variable is required to be set');
     }
 
-    if (!settings.webtaskSecret && process.env.WEBTASK_SECRET){
+    if (process.env.WEBTASK_SECRET){
         settings.webtaskSecret = process.env.WEBTASK_SECRET; 
+    } else {
+        throw new Error('WEBTASK_SECRET environment variable is required to be set');
     }
 
     let webtaskUrlWithKey = appendQuery(settings.makerWebtaskUrl, 'secret=' + settings.webtaskSecret);

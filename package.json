@@ -1,6 +1,6 @@
 {
   "name": "maker-webtask",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Consume message between IFFT (Maker) and other webtask-queue consumers ",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "append-query": "^2.0.1",
-    "command-line-args": "^3.0.4",
     "cron": "^1.2.1",
     "unirest": "^0.5.1"
   }
