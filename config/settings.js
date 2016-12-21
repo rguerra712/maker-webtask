@@ -3,8 +3,8 @@
     const commandLineArgs = require('command-line-args');
     const appendQuery = require('append-query');
     const optionDefinitions = [
-        { name: 'makerwebtaskurl', alias: 'w', type: String, defaultOption: '' },
-        { name: 'webtasksecret', alias: 's', type: String, defaultOption: '' },
+        { name: 'makerwebtaskurl', alias: 'w', type: String, defaultValue: '' },
+        { name: 'webtasksecret', alias: 's', type: String, defaultValu: '' },
     ];
     const options = commandLineArgs(optionDefinitions);
 
