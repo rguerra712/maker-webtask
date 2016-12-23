@@ -23,7 +23,8 @@ function turnOnLight(message) {
   }
 }
 var pollingInterval = 5; // Check the queue every 5 seconds due to quotas
-makerWebtask.run('lightbulb', turnLightOn, pollingInterval);
+makerWebtask.run('lightbulb', pollingInterval)
+    .then(turnOnLight);
 ```
 With the above example, when Maker calls the above URL with the following body:
 ```
