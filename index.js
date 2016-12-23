@@ -5,21 +5,25 @@
     const cron = require('cron');
     const settings = require('./config/settings.js');
 
-    exports.run = (device, action, pollingInterval) => {
-        if (!pollingInterval){
-            pollingInterval = 5;
-        }
-        if (settings.makerSettings.isSupported) {
-            var cronJob = cron.job(`*/${pollingInterval} * * * * *`, 
-                () => checkWebtaskQueueFor(device,
-                        message => checkWebtaskQueueFor(device, action), // on successfult peek, no peek 
-                        '&peek=1') // peek first
-            );
-            cronJob.start();
-        }
+    exports.run = (device, pollingInterval) => {
+        return new Promise((resolve, reject) => {
+            if (!pollingInterval){
+                pollingInterval = 5;
+            }
+            if (settings.makerSettings.isSupported) {
+                let onError = error => reject(error);
+                var cronJob = cron.job(`*/${pollingInterval} * * * * *`, 
+                    () => checkWebtaskQueueFor(device,
+                            message => checkWebtaskQueueFor(device, resolve, onError), // on successfult peek, no peek
+                            onError,
+                            '&peek=1') // peek first
+                );
+                cronJob.start();
+            }
+        });
     };
 
-    function checkWebtaskQueueFor(deviceToListenFor, actionOnFound, appendedQueryString){
+    function checkWebtaskQueueFor(deviceToListenFor, actionOnFound, actionOnFailure, appendedQueryString){
         if (!appendedQueryString){
             appendedQueryString = '';
         }
