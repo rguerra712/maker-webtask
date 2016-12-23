@@ -35,6 +35,8 @@
                     if (message.device === deviceToListenFor) {
                         actionOnFound(message);
                     }
+                } else {
+                    actionOnFailure('Webtask called failed with status ' + response.status);
                 }
             });
     }
